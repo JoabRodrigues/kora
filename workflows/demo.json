@@ -1,0 +1,22 @@
+{
+  "id": "demo",
+  "name": "Webhook -> HTTP",
+  "steps": [
+    { "id": "trigger", "type": "trigger", "connector": "webhook", "operation": "received" },
+    {
+      "id": "step1",
+      "type": "action",
+      "connector": "http",
+      "operation": "request",
+      "input": {
+        "method": "POST",
+        "url": "https://httpbin.org/post",
+        "headers": { "content-type": "application/json" },
+        "body": {
+          "event": "{{trigger.event}}",
+          "user": "{{trigger.user}}"
+        }
+      }
+    }
+  ]
+}

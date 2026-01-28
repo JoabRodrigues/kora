@@ -1,0 +1,62 @@
+# =========================
+# Node / JS / TS
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Build outputs
+# =========================
+dist/
+build/
+out/
+coverage/
+
+# =========================
+# Vite / React
+# =========================
+.vite/
+.vite-cache/
+kora-web/dist/
+
+# =========================
+# TypeScript
+# =========================
+*.tsbuildinfo
+
+# =========================
+# Logs & runtime data
+# =========================
+logs/
+*.log
+*.log.jsonl
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# =========================
+# Temporary / Cache
+# =========================
+.cache/
+.tmp/
+
+# =========================
+# Prisma / DB (se usar depois)
+# =========================
+prisma/migrations/

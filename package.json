@@ -1,6 +1,0 @@
-{
-  "type": "module",
-  "scripts": {
-    "dev": "tsx watch src/api/server.ts"
-  }
-}

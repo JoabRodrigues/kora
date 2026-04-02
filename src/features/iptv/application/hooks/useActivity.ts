@@ -2,9 +2,9 @@ import {
   CONTINUE_WATCHING_STORAGE_KEY,
   FAVORITES_STORAGE_KEY,
   RECENTS_STORAGE_KEY,
-} from "../constants";
-import type { ContinueWatchingEntry, NormalizedChannel } from "../types";
-import { usePersistentState } from "../storage";
+} from "../../domain/constants";
+import type { ContinueWatchingEntry, NormalizedChannel } from "../../domain/types";
+import { usePersistentState } from "../../infrastructure/storage";
 
 export function useActivity() {
   const [favoriteKeys, setFavoriteKeys] = usePersistentState<string[]>(

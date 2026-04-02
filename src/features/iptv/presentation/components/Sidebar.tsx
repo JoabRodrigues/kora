@@ -1,6 +1,11 @@
 import { useMemo, useState } from "react";
-import type { CategoryEntry, ContentMode, NormalizedChannel, SidebarView } from "../types";
-import { itemLabel, modeLabel } from "../utils";
+import type {
+  CategoryEntry,
+  ContentMode,
+  NormalizedChannel,
+  SidebarView,
+} from "../../domain/types";
+import { itemLabel, modeLabel } from "../../domain/utils";
 
 type SidebarProps = {
   categorySearch: string;

@@ -1,11 +1,41 @@
-import { PlayerPanel } from "./features/iptv/components/PlayerPanel";
-import { Sidebar } from "./features/iptv/components/Sidebar";
-import { TopBar } from "./features/iptv/components/TopBar";
-import { UserMenu } from "./features/iptv/components/UserMenu";
-import { useIptvApp } from "./features/iptv/hooks/useIptvApp";
+import { useIptvApp } from "./features/iptv/application/hooks/useIptvApp";
+import logo from "./features/iptv/presentation/assets/kora-logo.svg";
+import { PlayerPanel } from "./features/iptv/presentation/components/PlayerPanel";
+import { Sidebar } from "./features/iptv/presentation/components/Sidebar";
+import { TopBar } from "./features/iptv/presentation/components/TopBar";
+import { UserMenu } from "./features/iptv/presentation/components/UserMenu";
 
 export default function App() {
   const app = useIptvApp();
+  const hasProfiles = app.savedProfiles.length > 0;
+
+  if (!hasProfiles) {
+    return (
+      <main className="app-shell onboarding-shell">
+        <div className="onboarding-brand">
+          <img className="brand-logo" src={logo} alt="Kora" />
+        </div>
+        <UserMenu
+          forceCreate
+          credentials={app.credentials}
+          errorMessage={app.errorMessage}
+          isLoading={app.isLoading}
+          savedProfiles={app.savedProfiles}
+          sessionActive={Boolean(app.session)}
+          statusMessage={app.statusMessage}
+          onClose={() => undefined}
+          onDeleteProfile={app.handleDeleteProfile}
+          onLoadProfile={app.handleLoadProfile}
+          onLogin={app.handleLogin}
+          onLogout={app.handleLogout}
+          onSaveProfile={app.handleSaveProfile}
+          onSaveAndConnect={app.handleSaveAndConnect}
+          onSetCredentials={app.setCredentials}
+          onTestConnection={app.handleTestConnection}
+        />
+      </main>
+    );
+  }
 
   return (
     <main className="app-shell">
@@ -13,12 +43,7 @@ export default function App() {
         mode={app.mode}
         statusMessage={app.statusMessage}
         onModeChange={app.setMode}
-        onToggleUserMenu={() => {
-          app.setShowUserMenu((current) => !current);
-          if (app.savedProfiles.length === 0) {
-            app.setShowProfiles(true);
-          }
-        }}
+        onToggleUserMenu={() => app.setShowUserMenu((current) => !current)}
       />
 
       {app.showUserMenu ? (
@@ -28,7 +53,7 @@ export default function App() {
           isLoading={app.isLoading}
           savedProfiles={app.savedProfiles}
           sessionActive={Boolean(app.session)}
-          showProfiles={app.showProfiles}
+          statusMessage={app.statusMessage}
           onClose={() => app.setShowUserMenu(false)}
           onDeleteProfile={app.handleDeleteProfile}
           onLoadProfile={app.handleLoadProfile}
@@ -36,7 +61,6 @@ export default function App() {
           onLogout={app.handleLogout}
           onSaveProfile={app.handleSaveProfile}
           onSetCredentials={app.setCredentials}
-          onToggleProfiles={() => app.setShowProfiles((current) => !current)}
         />
       ) : null}
 

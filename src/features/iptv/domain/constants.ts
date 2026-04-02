@@ -1,3 +1,7 @@
+export const APP_DB_NAME = "kora-iptv-db";
+export const APP_DB_VERSION = 1;
+export const APP_DB_STORE = "app_state";
+
 export const CREDENTIALS_STORAGE_KEY = "kora-iptv-credentials";
 export const PROFILES_STORAGE_KEY = "kora-iptv-profiles";
 export const FAVORITES_STORAGE_KEY = "kora-iptv-favorites";

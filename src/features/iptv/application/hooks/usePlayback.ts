@@ -1,7 +1,11 @@
 import Hls from "hls.js";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { Credentials, NormalizedChannel } from "../types";
-import { buildLiveStreamCandidates, buildPlaybackUrl, modeLabel } from "../utils";
+import type { Credentials, NormalizedChannel } from "../../domain/types";
+import {
+  buildLiveStreamCandidates,
+  buildPlaybackUrl,
+  modeLabel,
+} from "../../domain/utils";
 
 export function usePlayback(
   credentials: Credentials,

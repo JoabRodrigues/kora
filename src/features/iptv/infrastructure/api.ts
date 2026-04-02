@@ -11,8 +11,14 @@ import type {
   XtreamShortEpgResponse,
   XtreamSeries,
   XtreamSeriesInfo,
-} from "./types";
-import { buildApiUrl, itemLabel, normalizeCategories, normalizeChannels, normalizeSeries } from "./utils";
+} from "../domain/types";
+import {
+  buildApiUrl,
+  itemLabel,
+  normalizeCategories,
+  normalizeChannels,
+  normalizeSeries,
+} from "../domain/utils";
 
 export async function authenticate(credentials: Credentials) {
   const authResponse = await fetch(buildApiUrl(credentials));

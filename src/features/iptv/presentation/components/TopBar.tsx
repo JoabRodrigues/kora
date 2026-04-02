@@ -1,5 +1,5 @@
-import type { ContentMode } from "../types";
-import { modeLabel } from "../utils";
+import type { ContentMode } from "../../domain/types";
+import { modeLabel } from "../../domain/utils";
 import logo from "../assets/kora-logo.svg";
 
 type TopBarProps = {

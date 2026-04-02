@@ -67,6 +67,19 @@ input {
   padding: 28px 0 40px;
 }
 
+.onboarding-shell {
+  min-height: 100vh;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 22px;
+}
+
+.onboarding-brand {
+  display: grid;
+  justify-items: center;
+}
+
 .topbar {
   display: flex;
   align-items: end;
@@ -196,6 +209,11 @@ input {
   z-index: 80;
 }
 
+.user-menu.standalone {
+  position: static;
+  width: min(520px, 100%);
+}
+
 .panel-header,
 .player-head,
 .channels-header,
@@ -320,6 +338,10 @@ input {
   margin-top: 18px;
 }
 
+.profile-picker-list {
+  margin-top: 4px;
+}
+
 .panel-subhead {
   display: flex;
   align-items: center;
@@ -353,6 +375,26 @@ input {
 .profile-delete {
   padding: 12px 14px;
   color: #ffb4b4;
+}
+
+.profile-create-button {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 18px;
+  cursor: pointer;
+  color: #ffcfaa;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 188, 145, 0.24);
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.profile-create-button:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 188, 145, 0.08);
+  border-color: rgba(255, 188, 145, 0.4);
 }
 
 .meta-card {

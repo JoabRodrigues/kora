@@ -1,29 +1,45 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { authenticate } from "../api";
-import type { SavedProfile } from "../types";
+import type { SavedProfile } from "../../domain/types";
 import { useActivity } from "./useActivity";
 import { useEpg } from "./useEpg";
 import { useLibrary } from "./useLibrary";
 import { usePlayback } from "./usePlayback";
 import { useProfiles } from "./useProfiles";
+import { useSession } from "./useSession";
 
 export function useIptvApp() {
-  const [sessionActive, setSessionActive] = useState(false);
   const [statusMessage, setStatusMessage] = useState(
     "Entre com URL, usuario e senha do provedor IPTV."
   );
   const [errorMessage, setErrorMessage] = useState("");
-  const [showProfiles, setShowProfiles] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   const profiles = useProfiles();
   const activity = useActivity();
+  const session = useSession({
+    credentials: profiles.credentials,
+    hasProfiles: profiles.savedProfiles.length > 0,
+    onConnectSuccess: async () => {
+      library.setSidebarView("categories");
+      await library.loadContent();
+    },
+    onLogout: () => {
+      library.setSidebarView("categories");
+      library.setSearch("");
+      library.setCategorySearch("");
+      setStatusMessage("Sessao encerrada.");
+      setErrorMessage("");
+      setShowUserMenu(false);
+    },
+    setErrorMessage,
+    setStatusMessage,
+  });
   const library = useLibrary({
     continueWatching: activity.continueWatching,
     credentials: profiles.credentials,
     favoriteKeys: activity.favoriteKeys,
     recentKeys: activity.recentKeys,
-    sessionActive,
+    sessionActive: session.sessionActive,
     setErrorMessage,
     setStatusMessage,
   });
@@ -42,45 +58,30 @@ export function useIptvApp() {
 
   async function handleLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    library.setSidebarView("categories");
-    setErrorMessage("");
-    setStatusMessage("Validando credenciais...");
-    try {
-      await authenticate(profiles.credentials);
-      setSessionActive(true);
+    const result = await session.connect();
+    if (result.shouldCloseMenu) {
       setShowUserMenu(false);
-      await library.loadContent();
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Falha desconhecida ao conectar no IPTV.";
-      setSessionActive(false);
-      setErrorMessage(message);
-      setStatusMessage("Conexao falhou.");
     }
   }
 
-  function handleLogout() {
-    setSessionActive(false);
-    library.setSidebarView("categories");
-    library.setSearch("");
-    library.setCategorySearch("");
-    setStatusMessage("Sessao encerrada.");
-    setErrorMessage("");
-    setShowUserMenu(false);
+  function handleSaveProfile(profileName: string, profileId: string | null) {
+    profiles.saveProfile(profileName, profileId, setErrorMessage, setStatusMessage);
   }
 
-  function handleSaveProfile() {
-    profiles.saveProfile(setErrorMessage, setStatusMessage, setShowProfiles);
+  async function handleTestConnection() {
+    await session.connect({ closeUserMenu: false, validateOnly: true });
+  }
+
+  async function handleSaveAndConnect(profileName: string, profileId: string | null) {
+    profiles.saveProfile(profileName, profileId, setErrorMessage, setStatusMessage);
+    const result = await session.connect();
+    if (result.shouldCloseMenu) {
+      setShowUserMenu(false);
+    }
   }
 
   function handleLoadProfile(profile: SavedProfile) {
-    profiles.loadProfile(
-      profile,
-      setStatusMessage,
-      setErrorMessage,
-      setShowProfiles,
-      setShowUserMenu
-    );
+    profiles.loadProfile(profile, setStatusMessage, setErrorMessage);
   }
 
   return {
@@ -94,12 +95,14 @@ export function useIptvApp() {
     handleDeleteProfile: profiles.deleteProfile,
     handleLoadProfile,
     handleLogin,
-    handleLogout,
+    handleLogout: session.logout,
     handlePlaybackError: playback.handlePlaybackError,
     handleSaveProfile,
+    handleSaveAndConnect,
     handleSelectCategory: library.handleSelectCategory,
     handleSelectChannel: library.handleSelectChannel,
-    isLoading: library.isLoading,
+    handleTestConnection,
+    isLoading: library.isLoading || session.isAuthenticating,
     isPlaying: playback.isPlaying,
     mode: library.mode,
     recentKeys: activity.recentKeys,
@@ -114,17 +117,15 @@ export function useIptvApp() {
     selectedChannelId: library.selectedChannelId,
     selectedSeasonId: library.selectedSeasonId,
     selectedSeries: library.selectedSeries,
-    session: sessionActive,
+    session: session.sessionActive,
     setCategorySearch: library.setCategorySearch,
     setCredentials: profiles.setCredentials,
     setIsPlaying: playback.setIsPlaying,
     setMode: library.setMode,
     setSearch: library.setSearch,
     setSelectedSeasonId: library.setSelectedSeasonId,
-    setShowProfiles,
     setShowUserMenu,
     setSidebarView: library.setSidebarView,
-    showProfiles,
     showUserMenu,
     sidebarView: library.sidebarView,
     statusMessage,

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { fetchShortEpg } from "../api";
-import type { Credentials, EpgEntry, NormalizedChannel } from "../types";
+import type { Credentials, EpgEntry, NormalizedChannel } from "../../domain/types";
+import { fetchShortEpg } from "../../infrastructure/api";
 
 export function useEpg(
   credentials: Credentials,

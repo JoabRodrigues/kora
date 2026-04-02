@@ -4,8 +4,8 @@ import type {
   ContinueWatchingEntry,
   EpgEntry,
   NormalizedChannel,
-} from "../types";
-import { modeLabel } from "../utils";
+} from "../../domain/types";
+import { modeLabel } from "../../domain/utils";
 
 type PlayerPanelProps = {
   activeChannel: NormalizedChannel | null;

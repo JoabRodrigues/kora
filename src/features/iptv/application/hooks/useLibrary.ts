@@ -4,8 +4,7 @@ import {
   CONTINUE_WATCHING_CATEGORY_ID,
   FAVORITES_CATEGORY_ID,
   RECENTS_CATEGORY_ID,
-} from "../constants";
-import { fetchModeLibrary, fetchSeriesEpisodes } from "../api";
+} from "../../domain/constants";
 import type {
   CategoryEntry,
   ContentMode,
@@ -14,8 +13,9 @@ import type {
   NormalizedCategory,
   NormalizedChannel,
   SidebarView,
-} from "../types";
-import { itemLabel, selectedCategoryName } from "../utils";
+} from "../../domain/types";
+import { itemLabel, selectedCategoryName } from "../../domain/utils";
+import { fetchModeLibrary, fetchSeriesEpisodes } from "../../infrastructure/api";
 
 type UseLibraryArgs = {
   continueWatching: Record<string, ContinueWatchingEntry>;

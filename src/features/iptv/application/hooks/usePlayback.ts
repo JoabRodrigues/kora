@@ -10,7 +10,10 @@ import {
 export function usePlayback(
   credentials: Credentials,
   channels: NormalizedChannel[],
+  recentItems: NormalizedChannel[],
   selectedChannelId: number | null,
+  selectedChannelKey: string | null,
+  selectedChannelVersion: number,
   setStatusMessage: (value: string) => void,
   setErrorMessage: (value: string) => void
 ) {
@@ -19,8 +22,15 @@ export function usePlayback(
   const hlsRef = useRef<Hls | null>(null);
 
   const activeChannel = useMemo(
-    () => channels.find((channel) => channel.id === selectedChannelId) ?? null,
-    [channels, selectedChannelId]
+    () =>
+      (selectedChannelKey
+        ? channels.find((channel) => channel.key === selectedChannelKey) ??
+          recentItems.find((channel) => channel.key === selectedChannelKey) ??
+          null
+        : channels.find((channel) => channel.id === selectedChannelId) ??
+          recentItems.find((channel) => channel.id === selectedChannelId) ??
+          null),
+    [channels, recentItems, selectedChannelId, selectedChannelKey]
   );
 
   useEffect(() => {
@@ -28,6 +38,17 @@ export function usePlayback(
     if (!video || !activeChannel) return;
 
     const [hlsCandidate, fallbackCandidate] = buildLiveStreamCandidates(credentials, activeChannel.id);
+    const playbackUrl = activeChannel.directSource || buildPlaybackUrl(
+      credentials,
+      activeChannel.mode,
+      activeChannel.id,
+      activeChannel.extension
+    );
+    const shouldUseHls =
+      playbackUrl.toLowerCase().includes(".m3u8") &&
+      activeChannel.mode !== "live" &&
+      Hls.isSupported();
+
     setErrorMessage("");
     setStatusMessage(`Sintonizando ${activeChannel.name}...`);
 
@@ -40,10 +61,10 @@ export function usePlayback(
     video.removeAttribute("src");
     video.load();
 
-    if (activeChannel.mode === "live" && Hls.isSupported()) {
+    if ((activeChannel.mode === "live" && Hls.isSupported()) || shouldUseHls) {
       const hls = new Hls();
       hlsRef.current = hls;
-      hls.loadSource(hlsCandidate);
+      hls.loadSource(activeChannel.mode === "live" ? hlsCandidate : playbackUrl);
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         video
@@ -59,6 +80,14 @@ export function usePlayback(
       });
       hls.on(Hls.Events.ERROR, (_, data) => {
         if (!data.fatal) return;
+        if (activeChannel.mode !== "live") {
+          setIsPlaying(false);
+          setErrorMessage(
+            "Nao foi possivel iniciar a reproducao da serie. Verifique formato, URL do stream ou permissao do provedor."
+          );
+          return;
+        }
+
         video.src = fallbackCandidate;
         video
           .play()
@@ -79,12 +108,7 @@ export function usePlayback(
       };
     }
 
-    video.src = buildPlaybackUrl(
-      credentials,
-      activeChannel.mode,
-      activeChannel.id,
-      activeChannel.extension
-    );
+    video.src = playbackUrl;
     video
       .play()
       .then(() => {
@@ -92,6 +116,7 @@ export function usePlayback(
         setStatusMessage(`${modeLabel(activeChannel.mode)}: ${activeChannel.name}`);
       })
       .catch(() => {
+        setIsPlaying(false);
         if (activeChannel.mode !== "live") {
           setErrorMessage(
             "Nao foi possivel iniciar a reproducao. Verifique se o provedor permite playback via navegador."
@@ -116,7 +141,35 @@ export function usePlayback(
     return () => {
       video.pause();
     };
-  }, [activeChannel, credentials, setErrorMessage, setStatusMessage]);
+  }, [activeChannel, credentials, selectedChannelVersion, setErrorMessage, setStatusMessage]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) {
+      return;
+    }
+
+    const handleFullscreenChange = () => {
+      const isFullscreen = isPlayerFullscreen(video);
+      if (isFullscreen) {
+        lockScreenOrientation("landscape");
+        return;
+      }
+
+      lockScreenOrientation("portrait");
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    video.addEventListener("webkitbeginfullscreen", handleFullscreenChange as EventListener);
+    video.addEventListener("webkitendfullscreen", handleFullscreenChange as EventListener);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      video.removeEventListener("webkitbeginfullscreen", handleFullscreenChange as EventListener);
+      video.removeEventListener("webkitendfullscreen", handleFullscreenChange as EventListener);
+      unlockScreenOrientation();
+    };
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -139,4 +192,41 @@ export function usePlayback(
     handlePlaybackError,
     videoRef,
   };
+}
+
+type OrientationLockType = "portrait" | "landscape";
+
+type OrientationScreen = Screen & {
+  orientation?: ScreenOrientation & {
+    lock?: (orientation: OrientationLockType | "any") => Promise<void>;
+    unlock?: () => void;
+  };
+};
+
+type FullscreenDocument = Document & {
+  webkitFullscreenElement?: Element | null;
+  msFullscreenElement?: Element | null;
+};
+
+function isPlayerFullscreen(video: HTMLVideoElement) {
+  const doc = document as FullscreenDocument;
+  const fullscreenElement =
+    document.fullscreenElement ?? doc.webkitFullscreenElement ?? doc.msFullscreenElement;
+
+  return fullscreenElement === video || fullscreenElement === video.parentElement;
+}
+
+function lockScreenOrientation(orientation: OrientationLockType) {
+  const screenWithOrientation = window.screen as OrientationScreen;
+  void screenWithOrientation.orientation?.lock?.(orientation).catch(() => undefined);
+}
+
+function unlockScreenOrientation() {
+  const screenWithOrientation = window.screen as OrientationScreen;
+  if (screenWithOrientation.orientation?.unlock) {
+    screenWithOrientation.orientation.unlock();
+    return;
+  }
+
+  void screenWithOrientation.orientation?.lock?.("any").catch(() => undefined);
 }

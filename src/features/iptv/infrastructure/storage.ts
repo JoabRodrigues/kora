@@ -88,6 +88,29 @@ async function writeIndexedDb<T>(key: string, value: T) {
   });
 }
 
+export async function readPersistentValue<T>(key: string, fallback: T): Promise<T> {
+  try {
+    const indexedValue = await readIndexedDb<T>(key);
+    if (indexedValue !== null) {
+      return indexedValue;
+    }
+
+    return await migrateFromLocalStorage(key, fallback);
+  } catch {
+    return readLocalStorage(key, fallback);
+  }
+}
+
+export async function writePersistentValue<T>(key: string, value: T) {
+  try {
+    await writeIndexedDb(key, value);
+  } catch {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    }
+  }
+}
+
 async function migrateFromLocalStorage<T>(key: string, fallback: T) {
   const legacyValue = readLocalStorage(key, fallback);
   const hasLegacyValue =
@@ -154,11 +177,7 @@ export function usePersistentState<T>(key: string, initialValue: T | (() => T)) 
       return;
     }
 
-    writeIndexedDb(key, value).catch(() => {
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem(key, JSON.stringify(value));
-      }
-    });
+    writePersistentValue(key, value).catch(() => undefined);
   }, [isHydrated, key, value]);
 
   return [value, setValue] as const;

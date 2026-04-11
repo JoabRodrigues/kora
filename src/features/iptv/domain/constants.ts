@@ -6,7 +6,10 @@ export const CREDENTIALS_STORAGE_KEY = "kora-iptv-credentials";
 export const PROFILES_STORAGE_KEY = "kora-iptv-profiles";
 export const FAVORITES_STORAGE_KEY = "kora-iptv-favorites";
 export const RECENTS_STORAGE_KEY = "kora-iptv-recents";
+export const RECENT_ITEMS_STORAGE_KEY = "kora-iptv-recent-items";
 export const CONTINUE_WATCHING_STORAGE_KEY = "kora-iptv-continue-watching";
+export const LIBRARY_CACHE_STORAGE_KEY = "kora-iptv-library-cache";
+export const LIBRARY_CACHE_TTL_MS = 60 * 60 * 1000;
 
 export const ALL_CATEGORY_ID = "all";
 export const FAVORITES_CATEGORY_ID = "favorites";

@@ -1,6 +1,7 @@
 import {
   CONTINUE_WATCHING_STORAGE_KEY,
   FAVORITES_STORAGE_KEY,
+  RECENT_ITEMS_STORAGE_KEY,
   RECENTS_STORAGE_KEY,
 } from "../../domain/constants";
 import type { ContinueWatchingEntry, NormalizedChannel } from "../../domain/types";
@@ -13,6 +14,10 @@ export function useActivity() {
   );
   const [recentKeys, setRecentKeys] = usePersistentState<string[]>(
     RECENTS_STORAGE_KEY,
+    []
+  );
+  const [recentItems, setRecentItems] = usePersistentState<NormalizedChannel[]>(
+    RECENT_ITEMS_STORAGE_KEY,
     []
   );
   const [continueWatching, setContinueWatching] = usePersistentState<
@@ -59,11 +64,16 @@ export function useActivity() {
       const next = [activeChannel.key, ...current.filter((key) => key !== activeChannel.key)];
       return next.slice(0, 24);
     });
+    setRecentItems((current) => {
+      const next = [activeChannel, ...current.filter((item) => item.key !== activeChannel.key)];
+      return next.slice(0, 24);
+    });
   }
 
   return {
     continueWatching,
     favoriteKeys,
+    recentItems,
     recentKeys,
     registerRecent,
     toggleFavorite,

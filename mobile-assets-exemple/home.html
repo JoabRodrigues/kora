@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Curator - IPTV Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#000000",
+                    "on-surface-variant": "#b3a7bd",
+                    "surface-variant": "#2c2139",
+                    "on-primary-fixed-variant": "#350088",
+                    "on-tertiary-fixed": "#064200",
+                    "on-background": "#f1e3fb",
+                    "error-container": "#a70138",
+                    "primary": "#b89fff",
+                    "primary-dim": "#834fff",
+                    "primary-container": "#ac8eff",
+                    "on-primary": "#37008e",
+                    "tertiary-container": "#2ff801",
+                    "background": "#120b1b",
+                    "primary-fixed-dim": "#a07dff",
+                    "outline-variant": "#4d4457",
+                    "surface-container-low": "#181022",
+                    "on-error": "#490013",
+                    "on-secondary": "#004d57",
+                    "surface-container-high": "#251b31",
+                    "surface-container": "#1e1629",
+                    "inverse-surface": "#fff7ff",
+                    "surface-dim": "#120b1b",
+                    "on-tertiary-fixed-variant": "#0d6200",
+                    "inverse-on-surface": "#5b5165",
+                    "inverse-primary": "#6d23f9",
+                    "surface": "#120b1b",
+                    "surface-bright": "#322741",
+                    "on-error-container": "#ffb2b9",
+                    "tertiary-fixed": "#2ff801",
+                    "secondary-dim": "#00d4ec",
+                    "secondary": "#00e3fd",
+                    "error-dim": "#d73357",
+                    "error": "#ff6e84",
+                    "primary-fixed": "#ac8eff",
+                    "surface-tint": "#b89fff",
+                    "on-tertiary-container": "#0b5800",
+                    "on-secondary-fixed-variant": "#005964",
+                    "secondary-container": "#006875",
+                    "surface-container-lowest": "#000000",
+                    "on-tertiary": "#0d6100",
+                    "on-primary-container": "#2a0070",
+                    "secondary-fixed-dim": "#00d7f0",
+                    "outline": "#7c7186",
+                    "tertiary-fixed-dim": "#2be800",
+                    "surface-container-highest": "#2c2139",
+                    "on-surface": "#f1e3fb",
+                    "on-secondary-container": "#e8fbff",
+                    "secondary-fixed": "#26e6ff",
+                    "on-secondary-fixed": "#003a42",
+                    "tertiary": "#8eff71",
+                    "tertiary-dim": "#2be800"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar { display: none; }
+        .custom-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background selection:bg-primary selection:text-on-primary min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="bg-[#120b1b] shadow-[0_0_40px_0_rgba(179,167,189,0.08)] sticky top-0 z-50 flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Professional studio portrait of a young man with soft cinematic lighting and a neutral purple background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF7CkVLcMRH_QfTz0ycZtWYqTLkl7tY-j-tLEFC5njx8rBy5vGc0seLlGflSugQgQPb75YboDdF6xaFuySm01t0fJ0OeVmymrq_LfeTfGXMtWOuoo1ypf_xfIGEsO21fYDT37XmmuQjjwf29KK0ILp8QXeaJtYBlxSn2BupcqlRVyd7OoJkciN0aAMhwDOTk4QNtCq2SzH4rOMyI2BxMsO1MJ8dqT8ztpvJXiekOJfMnVnVxOEAXqfLFH0v2xj0FISRtXlYm185DY"/>
+</div>
+<h1 class="text-[#b89fff] font-['Space_Grotesk'] text-2xl font-bold tracking-tight">The Curator</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-[#b89fff] hover:bg-[#2c2139] transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="px-6 space-y-10 mt-6">
+<!-- Hero Section: Featured Content -->
+<section class="relative w-full aspect-[16/9] rounded-3xl overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10"></div>
+<img alt="Featured Content Title" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Cinematic wide shot of a futuristic cyberpunk city with vibrant neon purple and blue lights under a starry night sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxH02FZx5mIBIyGhnGi9OPE5PVK89n4qGWb8dwwoj-kW8PCWWHNbo6wp4s1X-alTMu1eVXRKWZ1H5gj03ZlUQFDkyShl8wqVRdmFOyzmMmjQaNhC-4Bx_BHzeVgOz1tBVmXSWn6i4PiPUz2kpbT_WAhQJ0GShlU0sQmDwdQBLfXGuiXzyV5ZsUeFWQBCE9gZrYk81Cc0CGBjLZcZyen8wIT-eZ10u98PRoKpoN4DfG-uo8YRiiIY4W1FzSCKWsoAWVyGoajDjJ4VU"/>
+<div class="absolute bottom-6 left-6 z-20 space-y-2 max-w-[80%]">
+<span class="bg-primary-dim text-on-primary-fixed text-[0.6rem] font-bold px-2 py-1 rounded-sm uppercase tracking-widest">Trending Now</span>
+<h2 class="font-headline text-3xl font-extrabold text-white leading-none">NEON REBELLION</h2>
+<div class="flex items-center gap-3 text-on-surface-variant text-xs">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span>2024</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span>2h 14m</span>
+<span class="text-secondary font-bold">4K HDR</span>
+</div>
+</div>
+</section>
+<!-- Recently Watched (Asymmetric Layout) -->
+<section class="space-y-4">
+<div class="flex justify-between items-end">
+<h3 class="font-headline text-xl font-bold text-on-background">Recently Watched</h3>
+<span class="text-primary text-xs font-medium">View History</span>
+</div>
+<div class="flex gap-4 overflow-x-auto custom-scrollbar">
+<!-- VOD Card -->
+<div class="min-w-[160px] space-y-2">
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden bg-surface-container-high group">
+<img alt="Movie Title" class="w-full h-full object-cover" data-alt="Close up dramatic movie poster of a space explorer looking at a distant glowing nebula in deep violet tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoGvTd2JDHFfZCcdoRu6fivVTSoSomvk91esJa9PaSbb3YegIbiu_9EA6u-6AdEV2HjmfSyWK0Gn42bR2jJyrNKPh0KuN4NoYjPATKX-KwbUnOw83MvO8wIflS67IIfvVccRD28ZE1Ri5Asvt2UfVbnrf980Yxz8i1Zw5BkpnkxgI5JWojl44udO57oumaWiOSpwl4n9UvkNeGFMqPqCCWMpRGrtBbqQAZE7EUtsKFqtLVHJirlU_SKFFI_n-spW7H_AmhwOuH9qs"/>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-surface-container-highest">
+<div class="h-full bg-secondary w-2/3 shadow-[0_0_8px_#00e3fd]"></div>
+</div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-background/40 transition-opacity">
+<span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+</div>
+<p class="font-body text-xs font-semibold text-on-surface truncate">Stellar Voyage</p>
+</div>
+<!-- Channel Card -->
+<div class="min-w-[160px] space-y-2">
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden bg-surface-container-high group">
+<img alt="Channel Name" class="w-full h-full object-cover" data-alt="Atmospheric stadium light glowing through fog at a night football match with silhouettes of spectators" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv0HZvsSiASVYF1DLmU-dJefx4819CSWR6RKc6Ykr_V9WuhzM_pig1HYjMY8D5xQ1eSGMyViHsijOFkEOFmMoT7gPYZK77gZyEDsWZovjeWw-o2zLFFFZEMscWrK_53a5_8FZaVj9BEe7TfbkAlchQhNlqR-HLyYb1pvuqn5eLv-3zqZklcdoG93J1hREo49uaFvu7Hl8F-3CWWZIu1p4r5LNikOgo2lgcC5dUmWRQTreOXWnN7NcO4kqgFAOwpyvV6XR7bbtRBnY"/>
+<div class="absolute top-2 right-2 bg-secondary/20 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-bold text-secondary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> LIVE
+                        </div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-background/40 transition-opacity">
+<span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+</div>
+<p class="font-body text-xs font-semibold text-on-surface truncate">Sky Sports Main Event</p>
+</div>
+<!-- VOD Card 2 -->
+<div class="min-w-[160px] space-y-2 opacity-60">
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden bg-surface-container-high group">
+<img alt="Movie Title" class="w-full h-full object-cover" data-alt="Dark moody portrait of a detective in a trench coat standing under a flickering street lamp in rain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa3DQvRBiBo7xzkg1I60k3916tLHUNkMGA8A1jkC1KnbAHgWLSD1eWh9bIux0lqAN83CF6Z3P754l7Xm42R3nLlLAB4TYMK2j4wpRW8fFcfXNM8rfk68nSNFekUmD-lsku0teg-rIS-fj-HuJrBAr9GjBjNUGoZDz6dX9Sy0ab-U8hSkYBAlNGxaSp-NR9CfSPywgEbl6qyQ-vMa5nQ1miTWuQaXEAKniR9494OZ0gqnbHM36DbF6gaJF9o9F649LJP2AXaZTheQc"/>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-surface-container-highest">
+<div class="h-full bg-secondary w-full"></div>
+</div>
+</div>
+<p class="font-body text-xs font-semibold text-on-surface truncate">Shadow Protocol</p>
+</div>
+</div>
+</section>
+<!-- Live TV Categories (Bento Style) -->
+<section class="space-y-4">
+<h3 class="font-headline text-xl font-bold text-on-background">Live Channels</h3>
+<div class="grid grid-cols-2 gap-3">
+<div class="col-span-2 relative h-32 rounded-2xl overflow-hidden bg-surface-container flex items-center justify-between px-6 group">
+<div class="z-20">
+<h4 class="font-headline text-2xl font-bold text-white">Sports</h4>
+<p class="text-on-surface-variant text-xs">142 Channels Active</p>
+</div>
+<div class="absolute inset-0 z-10 bg-gradient-to-r from-background via-transparent to-transparent"></div>
+<img alt="Sports" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Dynamic shot of a basketball player dunking with motion blur and intense stadium lighting in purple hues" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgt9jO9lh7MtxBjZd4zX0YkmPPju7-gFIEippkaZH3KfZ25r1oZxLpAzAigVwl6bAH8AxPB8KcvSufFKxXjMFjr3ha1QhpEBecyERBLhch7_qtfQrjn-Xd9tvlLEwG6YHyF9PGOviM9qnYs0zSOIiZ7udNOvHuy7pxZak5WRwU8t7Bw-AJ_4MwNes3ECHoE2SYA9yQigloInK8R-c7Zmt1k4qMEKYqAjJzDKrnVKB7ZYkIshzwZHr9vWH4UaRv5kOF6c_RtDTKXnU"/>
+<span class="material-symbols-outlined text-primary text-4xl relative z-20">sports_soccer</span>
+</div>
+<div class="relative h-40 rounded-2xl overflow-hidden bg-surface-container p-4 flex flex-col justify-between group">
+<div class="absolute inset-0 bg-tertiary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-tertiary">newspaper</span>
+<div>
+<h4 class="font-headline text-lg font-bold">News</h4>
+<p class="text-on-surface-variant text-[10px]">World Wide Coverage</p>
+</div>
+</div>
+<div class="relative h-40 rounded-2xl overflow-hidden bg-surface-container p-4 flex flex-col justify-between group">
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-secondary">movie_filter</span>
+<div>
+<h4 class="font-headline text-lg font-bold">Cinema</h4>
+<p class="text-on-surface-variant text-[10px]">24/7 Movie Streams</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Trending Series (Horizontal List) -->
+<section class="space-y-4">
+<div class="flex justify-between items-end">
+<h3 class="font-headline text-xl font-bold text-on-background">Trending Series</h3>
+<span class="text-primary text-xs font-medium">Show All</span>
+</div>
+<div class="flex gap-4 overflow-x-auto custom-scrollbar pb-4">
+<div class="min-w-[280px] bg-surface-container-low rounded-2xl overflow-hidden shadow-xl border border-outline-variant/10">
+<div class="h-36 relative">
+<img alt="Series" class="w-full h-full object-cover" data-alt="Epic landscape of a fantasy kingdom with floating islands and waterfalls under a violet sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAclM1rERvBBlZDDo6yPBtPg1v_PjJdU9AHTf0zCBsNcQNZfKc4CIhsAj5R-NHHoZ-UNLN_o4zQA4jmn3hwd92keHYv5RtL4DO8fI5KMsFxTBz4E9ayoixOloiRv_hsjfVhWQkAMnjap9dVAWqmXJ2NHpHsnom9GPHFzl5j4kC4pfQX_Xl8I8F1L_TDI1hF13rw9GOWw6sY9fk9QcZ6sDs32ev29XvRJYhZ8szGqTyBbAvCoSK_OXKVuFUbbIFFwzq8CbKEqBli_4s"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+<div class="absolute bottom-2 left-3 flex gap-2">
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full border border-primary/20">Fantasy</span>
+<span class="text-[10px] bg-secondary/20 text-secondary px-2 py-0.5 rounded-full border border-secondary/20">S1-S4</span>
+</div>
+</div>
+<div class="p-4">
+<h5 class="font-headline font-bold text-base">Etheria: The Awakening</h5>
+<div class="mt-2 flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border border-background bg-surface-variant flex items-center justify-center text-[8px] font-bold">HD</div>
+<div class="w-6 h-6 rounded-full border border-background bg-surface-variant flex items-center justify-center text-[8px] font-bold">5.1</div>
+</div>
+<span class="text-on-surface-variant text-[10px] font-medium">Updated 2h ago</span>
+</div>
+</div>
+</div>
+<div class="min-w-[280px] bg-surface-container-low rounded-2xl overflow-hidden shadow-xl border border-outline-variant/10">
+<div class="h-36 relative">
+<img alt="Series" class="w-full h-full object-cover" data-alt="A desk with vintage computers and glowing green monitors in a dimly lit hacker's basement" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASELTE7LycnIlMt2vv5BtOfranSdK2dspdBEch57ERsnDZqGXUQZav6ZMr64kDMHsBjzW3hDGzzceMwwBZChvFiX0tf9HnXrS2MUzbDc6gPyXlpgUc_HciY6hZbaD0XtHya-sGIERyMMy3mVsET-zwisc3urwc3xdKbRuZJM7-9K5fGdUOZbXoe6VXbRESm8I-91dUbcfYfgO27pEjp05wjgEpjmMrWF7ELDCsWliq_jmaqBLlozPkkRWj69U8tFtSXBRGOaLSle0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+<div class="absolute bottom-2 left-3 flex gap-2">
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full border border-primary/20">Thriller</span>
+<span class="text-[10px] bg-secondary/20 text-secondary px-2 py-0.5 rounded-full border border-secondary/20">New Episode</span>
+</div>
+</div>
+<div class="p-4">
+<h5 class="font-headline font-bold text-base">Silicon Ghost</h5>
+<div class="mt-2 flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border border-background bg-surface-variant flex items-center justify-center text-[8px] font-bold">4K</div>
+<div class="w-6 h-6 rounded-full border border-background bg-surface-variant flex items-center justify-center text-[8px] font-bold">HDR</div>
+</div>
+<span class="text-tertiary text-[10px] font-bold">WATCH NOW</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#120b1b]/60 backdrop-blur-3xl rounded-t-3xl border-t border-[#b3a7bd]/15">
+<a class="flex flex-col items-center justify-center text-[#00e3fd] drop-shadow-[0_0_8px_#00e3fd] active:scale-110 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Manrope'] text-[0.6875rem] font-medium tracking-wide">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b3a7bd] hover:text-[#b89fff] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="live_tv">live_tv</span>
+<span class="font-['Manrope'] text-[0.6875rem] font-medium tracking-wide">Live TV</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b3a7bd] hover:text-[#b89fff] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="movie">movie</span>
+<span class="font-['Manrope'] text-[0.6875rem] font-medium tracking-wide">Movies</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b3a7bd] hover:text-[#b89fff] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="theaters">theaters</span>
+<span class="font-['Manrope'] text-[0.6875rem] font-medium tracking-wide">Series</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b3a7bd] hover:text-[#b89fff] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-['Manrope'] text-[0.6875rem] font-medium tracking-wide">Favorites</span>
+</a>
+</nav>
+</body></html>

@@ -46,7 +46,10 @@ export function useIptvApp() {
   const playback = usePlayback(
     profiles.credentials,
     library.channels,
+    activity.recentItems,
     library.selectedChannelId,
+    library.selectedChannelKey,
+    library.selectedChannelVersion,
     setStatusMessage,
     setErrorMessage
   );
@@ -105,6 +108,7 @@ export function useIptvApp() {
     isLoading: library.isLoading || session.isAuthenticating,
     isPlaying: playback.isPlaying,
     mode: library.mode,
+    recentItems: activity.recentItems,
     recentKeys: activity.recentKeys,
     reloadCurrentMode: library.loadContent,
     savedProfiles: profiles.savedProfiles,

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Curator - Live TV</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#000000",
+                    "on-surface-variant": "#b3a7bd",
+                    "surface-variant": "#2c2139",
+                    "on-primary-fixed-variant": "#350088",
+                    "on-tertiary-fixed": "#064200",
+                    "on-background": "#f1e3fb",
+                    "error-container": "#a70138",
+                    "primary": "#b89fff",
+                    "primary-dim": "#834fff",
+                    "primary-container": "#ac8eff",
+                    "on-primary": "#37008e",
+                    "tertiary-container": "#2ff801",
+                    "background": "#120b1b",
+                    "primary-fixed-dim": "#a07dff",
+                    "outline-variant": "#4d4457",
+                    "surface-container-low": "#181022",
+                    "on-error": "#490013",
+                    "on-secondary": "#004d57",
+                    "surface-container-high": "#251b31",
+                    "surface-container": "#1e1629",
+                    "inverse-surface": "#fff7ff",
+                    "surface-dim": "#120b1b",
+                    "on-tertiary-fixed-variant": "#0d6200",
+                    "inverse-on-surface": "#5b5165",
+                    "inverse-primary": "#6d23f9",
+                    "surface": "#120b1b",
+                    "surface-bright": "#322741",
+                    "on-error-container": "#ffb2b9",
+                    "tertiary-fixed": "#2ff801",
+                    "secondary-dim": "#00d4ec",
+                    "secondary": "#00e3fd",
+                    "error-dim": "#d73357",
+                    "error": "#ff6e84",
+                    "primary-fixed": "#ac8eff",
+                    "surface-tint": "#b89fff",
+                    "on-tertiary-container": "#0b5800",
+                    "on-secondary-fixed-variant": "#005964",
+                    "secondary-container": "#006875",
+                    "surface-container-lowest": "#000000",
+                    "on-tertiary": "#0d6100",
+                    "on-primary-container": "#2a0070",
+                    "secondary-fixed-dim": "#00d7f0",
+                    "outline": "#7c7186",
+                    "tertiary-fixed-dim": "#2be800",
+                    "surface-container-highest": "#2c2139",
+                    "on-surface": "#f1e3fb",
+                    "on-secondary-container": "#e8fbff",
+                    "secondary-fixed": "#26e6ff",
+                    "on-secondary-fixed": "#003a42",
+                    "tertiary": "#8eff71",
+                    "tertiary-dim": "#2be800"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #120b1b; color: #f1e3fb; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass { background: rgba(44, 33, 57, 0.6); backdrop-filter: blur(24px); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-[#120b1b] shadow-[0_0_40px_0_rgba(179,167,189,0.08)] sticky top-0 z-40">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest border border-outline-variant/30">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close up portrait of a young man with a slight smile, soft studio lighting on dark background, professional photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLh7a5gObMA1ad0l0BUUHJ1Lpu6LpGUBAGLHLTrh8xxF07Awr1pjdjio44FT9EzHMy3fIRfvsRbazGW1Wp84adBxvy0n22pHia3q_GjxlGIq9TH25qSl_doKONtkZ1uCPW2VNdHEa75D6WgbAHJAAOwlvTe9LGl6orrH0z5S-Tc_D3PxUTW796OPs_mlss3R4MKVjAl6HrMJKN1qMB1PQMtiQU-AFmE9EqLtnGOSQg88Ll9rhR7uJnUKWsRodRBi5DdDSC0KGFQlE"/>
+</div>
+<h1 class="text-[#b89fff] font-['Space_Grotesk'] text-2xl font-bold tracking-tight">The Curator</h1>
+</div>
+<!-- Desktop Nav Cluster -->
+<nav class="hidden md:flex items-center gap-8 font-label text-sm">
+<a class="text-[#b3a7bd] hover:bg-[#2c2139] px-3 py-2 rounded-lg transition-colors duration-300" href="#">Home</a>
+<a class="text-[#00e3fd] hover:bg-[#2c2139] px-3 py-2 rounded-lg transition-colors duration-300" href="#">Live TV</a>
+<a class="text-[#b3a7bd] hover:bg-[#2c2139] px-3 py-2 rounded-lg transition-colors duration-300" href="#">Movies</a>
+<a class="text-[#b3a7bd] hover:bg-[#2c2139] px-3 py-2 rounded-lg transition-colors duration-300" href="#">Series</a>
+</nav>
+<button class="text-[#b89fff] p-2 rounded-full hover:bg-[#2c2139] transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 pt-8">
+<!-- Hero Category Section -->
+<section class="mb-10">
+<div class="relative rounded-3xl overflow-hidden aspect-[21/9] md:aspect-[32/10] bg-surface-container shadow-2xl group">
+<img alt="Featured Live Event" class="w-full h-full object-cover opacity-60" data-alt="Cinematic shot of a stadium crowd at night with neon lights, high contrast, deep purples and blues, professional sports broadcasting style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADYflQiZ_H4Amn7P0WV1jqULD4g0ElWea9jpvpGV77Eg13PATozOESNuhT4LEx39QKKrg0XLQXLT3DpueKJ_JOgRK5g7cbswAQKc92_Hv3HNWC1h2Bx0NUSJLmWoakmdvG2VwpVxYThjzfyEm-kYRXY8RzplYKSL5132Ydf0kw1mpnaKg-IEwSeHY3MkC-MHDboVqO7Rxk-IZ-q18KDy9WKSrLES-S4KFbh-ktCIgJsb6pyZH6080ejeBXdqtS8JxN_BZhG-0ULgw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full md:w-2/3">
+<div class="flex items-center gap-2 mb-3">
+<span class="px-3 py-1 bg-secondary text-on-secondary text-[0.625rem] font-bold rounded-full uppercase tracking-wider animate-pulse">Live Now</span>
+<span class="text-on-surface-variant font-label text-xs">Premier League • Matchday 24</span>
+</div>
+<h2 class="font-headline text-4xl md:text-5xl font-bold mb-4 leading-tight">Champions League: City vs Madrid</h2>
+<div class="flex gap-4">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-bold flex items-center gap-2 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-lg" data-weight="fill">play_arrow</span> Watch Live
+                        </button>
+<button class="bg-surface-variant/60 backdrop-blur-md text-on-surface px-6 py-3 rounded-full font-bold border border-outline-variant/20 hover:bg-surface-variant transition-colors">
+                            EPG Details
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Search and Filters -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+<div class="flex flex-wrap gap-2 hide-scrollbar overflow-x-auto w-full md:w-auto">
+<button class="px-5 py-2.5 rounded-full bg-secondary text-on-secondary font-bold text-sm whitespace-nowrap shadow-[0_0_15px_rgba(0,227,253,0.3)]">All Channels</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant font-medium text-sm whitespace-nowrap hover:bg-surface-container-highest transition-colors">Sports</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant font-medium text-sm whitespace-nowrap hover:bg-surface-container-highest transition-colors">Movies</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant font-medium text-sm whitespace-nowrap hover:bg-surface-container-highest transition-colors">News</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant font-medium text-sm whitespace-nowrap hover:bg-surface-container-highest transition-colors">Kids</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant font-medium text-sm whitespace-nowrap hover:bg-surface-container-highest transition-colors">Documentary</button>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="relative flex-grow md:w-64">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-xl">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-3 pl-12 pr-6 focus:ring-2 focus:ring-primary text-sm text-on-surface placeholder:text-outline-variant" placeholder="Search channels..." type="text"/>
+</div>
+<button class="p-3 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant/20 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</section>
+<!-- Sort Toggles -->
+<div class="flex gap-6 mb-6 border-b border-outline-variant/10 pb-4">
+<button class="text-primary font-bold text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">history</span> Recently Watched
+            </button>
+<button class="text-on-surface-variant font-medium text-sm flex items-center gap-2 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span> Favorites
+            </button>
+</div>
+<!-- Channel Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Channel Card 1 -->
+<div class="group relative bg-surface-container-low rounded-3xl p-5 border border-outline-variant/10 hover:bg-surface-container-high transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5">
+<div class="flex gap-5">
+<div class="w-20 h-20 flex-shrink-0 bg-surface-container-highest rounded-2xl flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<img alt="Channel Logo" class="w-14 h-14 object-contain" data-alt="Minimalist abstract graphic logo with vibrant gradient colors, professional broadcast style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWqD_hbalmMf2WY5Kg_xWhHIkotGq6O27XzTrHF3VUisNLH7KD5HBw-9XioR7x-Ne6ZYOP13nscVCl2WNw2wJZoTFX61wOJmUeDoYHjpGgNGirEjKvkeq81pYU2YOeEWgbIW-b9g_AbLu-mDZvE4DyD94eJGWfaR1axwaIUMYTLEK4saHbYVBPMgECoz2QNsEgdgQM8RxDt5EO1z15tUuHd0oG76sUF73Ay25a26cXdjFVpcId1g18Pl-ISr082Lfy4zjN4_r44nA"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-on-surface truncate">Sky Cinema Action</h3>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<p class="text-primary font-bold text-sm mt-1 truncate">John Wick: Chapter 4</p>
+<p class="text-on-surface-variant text-[0.6875rem] font-medium mt-0.5">21:00 - 23:45 • Action / Thriller</p>
+</div>
+</div>
+<div class="mt-5">
+<div class="flex justify-between text-[0.625rem] font-bold text-outline mb-1.5 uppercase tracking-tighter">
+<span>Started 45m ago</span>
+<span class="text-secondary">62% Complete</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary-dim to-secondary rounded-full w-[62%] shadow-[0_0_8px_#00e3fd]"></div>
+</div>
+</div>
+</div>
+<!-- Channel Card 2 -->
+<div class="group relative bg-surface-container-low rounded-3xl p-5 border border-outline-variant/10 hover:bg-surface-container-high transition-all duration-300">
+<div class="flex gap-5">
+<div class="w-20 h-20 flex-shrink-0 bg-surface-container-highest rounded-2xl flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<img alt="Channel Logo" class="w-14 h-14 object-contain" data-alt="Bright colorful geometric brand identity logo, clean aesthetic for a children's television network" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiv33x5HWPm2SkPSHesMdVF7vV6KLIgHzJ3OvtlGJRD6_L7hyOtZgXiR84Nkez1tvf9M4NlM3xoHsJjwUh_ZcOeUC9T1MLNvoqeqvKE8DSzkzqkzHrdVjdHdwrLqqtY--ctdeHOcs6JKFPiZ0mt5LKKa8i_CPwMJRBnKIuB84LTflyE7kUuDejuQWgnlgHym6Q1Ucups6bd2mzwK6beBPF5J1H8WYHllBiDMLM6g_jvS5JPQsOJX7KXnC4anHps_ZKJXuIMovuDro"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-on-surface truncate">Cartoon Network</h3>
+<button class="text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<p class="text-primary font-bold text-sm mt-1 truncate">Adventure Time</p>
+<p class="text-on-surface-variant text-[0.6875rem] font-medium mt-0.5">14:15 - 14:45 • Animation</p>
+</div>
+</div>
+<div class="mt-5">
+<div class="flex justify-between text-[0.625rem] font-bold text-outline mb-1.5 uppercase tracking-tighter">
+<span>Next: Regular Show (14:45)</span>
+<span class="text-secondary">15% Complete</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary-dim to-secondary rounded-full w-[15%] shadow-[0_0_8px_#00e3fd]"></div>
+</div>
+</div>
+</div>
+<!-- Channel Card 3 -->
+<div class="group relative bg-surface-container-low rounded-3xl p-5 border border-outline-variant/10 hover:bg-surface-container-high transition-all duration-300">
+<div class="flex gap-5">
+<div class="w-20 h-20 flex-shrink-0 bg-surface-container-highest rounded-2xl flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<img alt="Channel Logo" class="w-14 h-14 object-contain" data-alt="Professional bold news agency logo, monochrome typography with clean lines on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTYb_uGERdCzrqOugkTjfXlVEItJUD55k4i4ep72FEFo7gDv_e_Mvu5Kv6fzNt5AsvWae9hiJey3_arVXu7kQj-AD7BImtTY5BhUH0MIobbr1el4DvDYTpfE_79OUjv1es2dOIbQZRVUJWSZ6EHSUaZfS_zwII7-N_YuWx5OEI9odgTbDh6vRQEkodc81O-Q50oJ4nBu0mCt5AzkxYjRUam7NOkFRBdVpncXp-G9aCTrm4_4uZMskqeg3WiRAn9dyi-bX_jsMut2Q"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-on-surface truncate">BBC News 24</h3>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<p class="text-primary font-bold text-sm mt-1 truncate">World News Today</p>
+<p class="text-on-surface-variant text-[0.6875rem] font-medium mt-0.5">14:00 - 15:00 • News</p>
+</div>
+</div>
+<div class="mt-5">
+<div class="flex justify-between text-[0.625rem] font-bold text-outline mb-1.5 uppercase tracking-tighter">
+<span>LIVE Bulletin</span>
+<span class="text-secondary">88% Complete</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary-dim to-secondary rounded-full w-[88%] shadow-[0_0_8px_#00e3fd]"></div>
+</div>
+</div>
+</div>
+<!-- Channel Card 4 -->
+<div class="group relative bg-surface-container-low rounded-3xl p-5 border border-outline-variant/10 hover:bg-surface-container-high transition-all duration-300">
+<div class="flex gap-5">
+<div class="w-20 h-20 flex-shrink-0 bg-surface-container-highest rounded-2xl flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<img alt="Channel Logo" class="w-14 h-14 object-contain" data-alt="Sleek silver and white metallic logo design for a sports channel, high definition aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdUeNiWhXaB4JuNZjSPsOsfR_32yP5zb9hgk7wNHXQSgsyAkMqfV3XpEJ_QTZ_ifDec5FkgsxzjRbzevbTSidktPqPhf3M4gM2Aagjh-BR6UnxOn_07iFE6Zywq-7LTJcGYjyOjHZdh1JD6Jj1QH6slIAB4SjAbYcaWBcHOfUqnHpBar50V5qc9nmSsk370WWn22UqnHae5oAYnA0exAqQLvz2weUEpKDUnXwdDW2ZlRcxGF8yrBi36mxzTn0mOX3JgKHtIt0Ko5k"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-on-surface truncate">Discovery HD</h3>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<p class="text-primary font-bold text-sm mt-1 truncate">Planet Earth III</p>
+<p class="text-on-surface-variant text-[0.6875rem] font-medium mt-0.5">14:00 - 15:30 • Documentary</p>
+</div>
+</div>
+<div class="mt-5">
+<div class="flex justify-between text-[0.625rem] font-bold text-outline mb-1.5 uppercase tracking-tighter">
+<span>35m remaining</span>
+<span class="text-secondary">42% Complete</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary-dim to-secondary rounded-full w-[42%] shadow-[0_0_8px_#00e3fd]"></div>
+</div>
+</div>
+</div>
+<!-- Channel Card 5 -->
+<div class="group relative bg-surface-container-low rounded-3xl p-5 border border-outline-variant/10 hover:bg-surface-container-high transition-all duration-300">
+<div class="flex gap-5">
+<div class="w-20 h-20 flex-shrink-0 bg-surface-container-highest rounded-2xl flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<img alt="Channel Logo" class="w-14 h-14 object-contain" data-alt="Abstract vibrant geometric icon logo, modern tech-inspired branding for a media network" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqMbjE1FgBGrw0imL5o7IrmmLJXuWLm6X90FhsspoaIXacEclU2pLohtGippWq9lwRJ2fHYZ0pXkWbNob3vbD6X4J3YcWH1UJbotNO-UHujV2PqzVLjIAM5KooAUKLyjx4KvbXeMgtF-4rtqssWwlYu8zkl5lyW66dEb1kvwoRwvyV0k8-q0UCbXkOhkkYz-ToFvCR9qZIc3qadvSuYTDFCYZf8TrFmUAQYZZvNWhfdkyZxwvqCugt7ZhOw9Pfjo-Ej_ISb5RXcbM"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-on-surface truncate">National Geographic</h3>
+<button class="text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<p class="text-primary font-bold text-sm mt-1 truncate">Drain the Oceans</p>
+<p class="text-on-surface-variant text-[0.6875rem] font-medium mt-0.5">14:00 - 15:00 • Nature</p>
+</div>
+</div>
+<div class="mt-5">
+<div class="flex justify-between text-[0.625rem] font-bold text-outline mb-1.5 uppercase tracking-tighter">
+<span>Ending soon</span>
+<span class="text-secondary">92% Complete</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary-dim to-secondary rounded-full w-[92%] shadow-[0_0_8px_#00e3fd]"></div>
+</div>
+</div>
+</div>
+<!-- Channel Card 6 -->
+<div class="group relative bg-surface-container-low rounded-3xl p-5 border border-outline-variant/10 hover:bg-surface-container-high transition-all duration-300">
+<div class="flex gap-5">
+<div class="w-20 h-20 flex-shrink-0 bg-surface-container-highest rounded-2xl flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<img alt="Channel Logo" class="w-14 h-14 object-contain" data-alt="Stylized glowing neon typography logo for an entertainment channel, vibrant pink and cyan hues" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGRHHEdjEYx8aAFZtGhuCsrxdhgrxmo2qg6HJgIGgzAnRNQdHwisfz4Krj9lszsYj6ueDmxXYFMtyS1faerUy2Lahx-RuyiIRQP6QicZLAvVn3hfFOB-OstBIKr4HehCWQMaTNr66MTvxnV3DrSJ21R05AMW5AVWGi95rrDFNXyENygC3yQti9Eu8lpKpJk-pG1IXPSnNjs7z3mlfnkKaSEYVi3n83qK4ZDJlLtLgi1GTovqfn5acIW5LGZy53P5HCGHWirRoa02c"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-on-surface truncate">MTV Classic</h3>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<p class="text-primary font-bold text-sm mt-1 truncate">90s Rewind: Top 100</p>
+<p class="text-on-surface-variant text-[0.6875rem] font-medium mt-0.5">12:00 - 16:00 • Music</p>
+</div>
+</div>
+<div class="mt-5">
+<div class="flex justify-between text-[0.625rem] font-bold text-outline mb-1.5 uppercase tracking-tighter">
+<span>Duration 4h</span>
+<span class="text-secondary">55% Complete</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary-dim to-secondary rounded-full w-[55%] shadow-[0_0_8px_#00e3fd]"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-[#120b1b]/60 backdrop-blur-3xl rounded-t-3xl border-t border-[#b3a7bd]/15 flex justify-around items-center px-4 pb-6 pt-3">
+<a class="flex flex-col items-center justify-center text-[#b3a7bd] hover:text-[#b89fff] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="font-['Manrope'] text-[0.6875rem] font-medium tracking-wide">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#00e3fd] drop-shadow-[0_0_8px_#00e3fd] scale-110" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="live_tv" style="font-variation-settings: 'FILL' 1;">live_tv</span>
+<span class="font-['Manrope'] text-[0.6875rem] font-medium tracking-wide">Live TV</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b3a7bd] hover:text-[#b89fff] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="movie">movie</span>
+<span class="font-['Manrope'] text-[0.6875rem] font-medium tracking-wide">Movies</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b3a7bd] hover:text-[#b89fff] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="theaters">theaters</span>
+<span class="font-['Manrope'] text-[0.6875rem] font-medium tracking-wide">Series</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b3a7bd] hover:text-[#b89fff] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="favorite">favorite</span>
+<span class="font-['Manrope'] text-[0.6875rem] font-medium tracking-wide">Favorites</span>
+</a>
+</nav>
+<!-- Floating Filter FAB for quick category access on mobile -->
+<button class="fixed right-6 bottom-28 z-50 bg-primary text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-2xl md:hidden hover:scale-105 transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+</button>
+</body></html>

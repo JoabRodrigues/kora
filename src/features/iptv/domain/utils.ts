@@ -113,6 +113,7 @@ export function normalizeChannels(
         ? String(channel.container_extension ?? "mp4").trim().toUpperCase() || "VOD"
         : String(channel.epg_channel_id ?? "").trim(),
     extension: String(channel.container_extension ?? "mp4").trim() || "mp4",
+    directSource: String(channel.direct_source ?? "").trim(),
   }));
 }
 

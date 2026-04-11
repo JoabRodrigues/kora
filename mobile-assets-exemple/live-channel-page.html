@@ -1,0 +1,310 @@
+<html class="dark"><head>
+<meta charset="utf-8"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-fixed": "#000000",
+            "on-surface-variant": "#b3a7bd",
+            "surface-variant": "#2c2139",
+            "on-primary-fixed-variant": "#350088",
+            "on-tertiary-fixed": "#064200",
+            "on-background": "#f1e3fb",
+            "error-container": "#a70138",
+            "primary": "#b89fff",
+            "primary-dim": "#834fff",
+            "primary-container": "#ac8eff",
+            "on-primary": "#37008e",
+            "tertiary-container": "#2ff801",
+            "background": "#120b1b",
+            "primary-fixed-dim": "#a07dff",
+            "outline-variant": "#4d4457",
+            "surface-container-low": "#181022",
+            "on-error": "#490013",
+            "on-secondary": "#004d57",
+            "surface-container-high": "#251b31",
+            "surface-container": "#1e1629",
+            "inverse-surface": "#fff7ff",
+            "surface-dim": "#120b1b",
+            "on-tertiary-fixed-variant": "#0d6200",
+            "inverse-on-surface": "#5b5165",
+            "inverse-primary": "#6d23f9",
+            "surface": "#120b1b",
+            "surface-bright": "#322741",
+            "on-error-container": "#ffb2b9",
+            "tertiary-fixed": "#2ff801",
+            "secondary-dim": "#00d4ec",
+            "secondary": "#00e3fd",
+            "error-dim": "#d73357",
+            "error": "#ff6e84",
+            "primary-fixed": "#ac8eff",
+            "surface-tint": "#b89fff",
+            "on-tertiary-container": "#0b5800",
+            "on-secondary-fixed-variant": "#005964",
+            "secondary-container": "#006875",
+            "surface-container-lowest": "#000000",
+            "on-tertiary": "#0d6100",
+            "on-primary-container": "#2a0070",
+            "secondary-fixed-dim": "#00d7f0",
+            "outline": "#7c7186",
+            "tertiary-fixed-dim": "#2be800",
+            "surface-container-highest": "#2c2139",
+            "on-surface": "#f1e3fb",
+            "on-secondary-container": "#e8fbff",
+            "secondary-fixed": "#26e6ff",
+            "on-secondary-fixed": "#003a42",
+            "tertiary": "#8eff71",
+            "tertiary-dim": "#2be800"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "3xl": "1.5rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Space Grotesk"],
+            "body": ["Manrope"],
+            "label": ["Manrope"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-panel {
+      background: rgba(44, 33, 57, 0.6);
+      backdrop-filter: blur(24px);
+    }
+    .video-gradient-overlay {
+      background: linear-gradient(0deg, rgba(18,11,27,1) 0%, rgba(18,11,27,0) 40%, rgba(18,11,27,0) 60%, rgba(18,11,27,0.8) 100%);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen flex flex-col selection:bg-primary/30">
+<!-- Header Anchor -->
+<header class="bg-[#120b1b] shadow-[0_0_40px_0_rgba(179,167,189,0.08)] flex justify-between items-center w-full px-6 py-4 fixed top-0 z-50">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#2c2139] transition-colors duration-300">
+<span class="material-symbols-outlined text-[#b89fff]">arrow_back</span>
+</button>
+<h1 class="font-['Space_Grotesk'] text-2xl font-bold tracking-tight text-[#b89fff]">The Curator</h1>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#2c2139] transition-colors duration-300">
+<span class="material-symbols-outlined text-[#b89fff]">search</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="Portrait of a modern user in soft violet studio lighting with a clean professional aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGX3Yup4BBZKmGQV5DGyPJCjJmgTgAWwx4fkcvWy2Hpp1XXSAHn2y2lqw8NLzRpUal-TQnRv-CBtgUhD5RFFevWr30rU_KkrE2Wvcv7oNceyOIISDxSLV0RvBqxdCYt8I6Y-SVkBwJJY_AUyPMDMbFJi-iNMmavO2cUClNKlrJ2077Pb5N4psH8yQp_VSK2e2ku2_pZ79dcO9l1aKgIBzZZxDD-DGHZC4vzKDB33K-OoCY3xlpE_zqO7NshgPMNweon6Xo7J1Yuwo"/>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-[72px]">
+<!-- Video Player Canvas -->
+<section class="relative aspect-video w-full overflow-hidden bg-black group">
+<img class="w-full h-full object-cover opacity-90" data-alt="Live sports broadcast action shot of a soccer match in a futuristic stadium with vibrant neon turf and crowd lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvtDM_he3BkITERdQOs_9tvhMGORzDSWxdc6BwQrtfYLKKht4qCJ0YnudbzBOh-onimEYC9f_je0nu0ROur8kjS3K9miD25owDnNeFFTKPnI2sLdovrydDV26bgkB53A1hKXfywlzVPWuZYWMqw5acKK77PnW_HNxpuCxVX7VZ2b6oVyp7LQZ6IqkU3qJG2r1VYr3L1LIr6LUuSnNLRQiiKsqYoJR2pYPb3Y5MLQ0re2LWne7y8xHMxHbkiXIt-2Uvqw0CKNfKsr8"/>
+<!-- Video Overlays -->
+<div class="absolute inset-0 video-gradient-overlay pointer-events-none"></div>
+<!-- Live Badge & Info -->
+<div class="absolute top-6 left-6 flex items-center gap-3">
+<div class="bg-error px-3 py-1 rounded-full flex items-center gap-2 shadow-[0_0_15px_rgba(255,110,132,0.4)]">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+<span class="text-on-primary-fixed text-[0.6875rem] font-bold tracking-widest">LIVE</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline font-bold text-xl text-white tracking-tight leading-none">Champions League Final</span>
+<span class="text-secondary text-[0.6875rem] font-semibold mt-1">Stade de France • 4K HDR</span>
+</div>
+</div>
+<!-- Player Interaction Controls -->
+<div class="absolute bottom-0 left-0 w-full p-6 transition-opacity duration-300">
+<div class="glass-panel p-4 rounded-3xl border border-outline-variant/15 flex flex-col gap-4">
+<!-- Seek bar (Decorative for Live) -->
+<div class="relative h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-[85%] bg-gradient-to-r from-secondary-dim to-secondary shadow-[0_0_8px_#00e3fd]"></div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-6">
+<button class="text-white hover:text-secondary transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined text-3xl">skip_previous</span>
+</button>
+<button class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-secondary transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button class="text-white hover:text-secondary transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined text-3xl">skip_next</span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3">
+<button class="text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined">volume_up</span>
+</button>
+<div class="w-24 h-1 bg-surface-container-highest rounded-full hidden sm:block">
+<div class="w-[70%] h-full bg-on-surface-variant rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant/30 text-white hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[0.6875rem] font-bold tracking-tight uppercase">Favorite</span>
+</button>
+<button class="text-white hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-2xl">subtitles</span>
+</button>
+<button class="text-white hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-2xl">settings</span>
+</button>
+<button class="text-white hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-2xl">fullscreen</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- EPG Section -->
+<section class="p-6 max-w-7xl mx-auto w-full">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant/10">
+<img class="w-10 h-10 object-contain" data-alt="Minimalist sports channel logo with sharp geometric shapes and vibrant teal branding" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtSis42eeVXf1TXXpCwGILoq8njGotZbQn7pge3ZJzgVMAeXpbXo3zHbvjbmapdTj4waO8pCp-fSoJ7IfVl4BiEfFXdAf6XU8XikQRLzoaKS-NcFzyp86hMvqGpFdX9qJRhnnoOB6aFsS1HSdfYM3mLDA235tbx2q9BeGkxMgIzibPmoHOgsPd71WEwsh7AlwSNbcyQg6Xsqv3ea4DdbSVWzX0kCY54g6Xqjy-RCqdNHN5jITktlcXcD98Ca8E5rD7cc0PEYPY1f8"/>
+</div>
+<div>
+<h2 class="font-headline text-2xl font-bold">Sports Ultra HD</h2>
+<p class="text-on-surface-variant text-sm font-medium">Channel 102 • Global Sports Network</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="bg-surface-container-highest px-4 py-2 rounded-xl text-secondary text-xs font-bold border border-secondary/20">4K ULTRA HD</span>
+<span class="bg-surface-container-highest px-4 py-2 rounded-xl text-on-surface-variant text-xs font-bold border border-outline-variant/20">DOLBY ATMOS</span>
+</div>
+</div>
+<!-- Bento Grid EPG -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+<!-- Now Playing -->
+<div class="md:col-span-7 group">
+<div class="bg-surface-container-high rounded-3xl p-6 h-full relative overflow-hidden border-b-2 border-secondary/40 shadow-xl">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-4">
+<span class="text-tertiary font-bold text-xs tracking-widest uppercase">Now Playing</span>
+<span class="text-on-surface-variant text-xs font-medium">21:00 - 23:30</span>
+</div>
+<h3 class="font-headline text-3xl font-bold text-white mb-2">UEFA Champions League: Final</h3>
+<p class="text-on-surface-variant text-base leading-relaxed mb-6 max-w-lg">
+                The pinnacle of European club football. Real Madrid takes on Liverpool in an epic showdown at the heart of Paris. Expert commentary by Peter Drury.
+              </p>
+<div class="flex items-center gap-6 mt-8">
+<div class="flex -space-x-3">
+<img class="w-10 h-10 rounded-full border-2 border-surface-container-high object-cover" data-alt="Headshot of a professional sports commentator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvXWJgor8HEUhOe8OlPWB_m_L445rLslN44mXOmMkwd1hkCx1T-dTHHHEQWztG_OyGub0Y-XX0itL6QSeH8FIoQTHjpOvzGmdfie3fSF5wO3VG4_CJduwFPzr3DfZam5yN2ynIPzZ0OJt4z87FaQqmRBRtoR5hi3IkyKuk9sbX69iOMAaMEDhL2zzIFw0oxTvslqUjBBdCwVGSrwYPyWzHYKdQazIQYcN-cohOgmdAOFDG7oR0lHlo7FjQG8jtHdgMahmX55TzFBE"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface-container-high object-cover" data-alt="Headshot of a female sports analyst" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqTNln22ujgILfB4gC0qwPaXXNOjHo3Q1PJFmvjM0QxNSpy3IZ4mgprx52LWqosjZRGWok-dmzcOS3i2IYUDXcCjy93UPgCVExKXrQwysdG0LhZDmhHHrgxile6pA6e9L693DI6-lo-_XJTRXOGrkwnrKc3IPzDF3IEw9z3fm8skWP5Qm5b-19-GSsbKUPvLrfjk_cLKE-HAvacX2dWtlqS2WNg0hXoSy28b--2saiLj72G_SXziQNGxwh9vJlWk7AxHcEySmUrzM"/>
+<div class="w-10 h-10 rounded-full border-2 border-surface-container-high bg-primary flex items-center justify-center text-[10px] font-bold text-on-primary-container">+12k</div>
+</div>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-tighter">Live Audience</span>
+</div>
+</div>
+<!-- Glow Effect -->
+<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-secondary/10 blur-[100px] rounded-full"></div>
+</div>
+</div>
+<!-- Up Next -->
+<div class="md:col-span-5 flex flex-col gap-4">
+<!-- Next 1 -->
+<div class="bg-surface-container rounded-3xl p-5 border border-outline-variant/10 hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Cinematic shot of a stadium tunnel under bright floodlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE6l3BHeJETNz408k3KRgEZIyJAP1d3qYAzAm3cgVQE1KjC7y7Ajdsj3GtKfnNR9lw0EPD_Vg5xLrgXysGGay8aAghutZPAgdT0QcE6O_YeVVTSMv5DCJhg5rNPeeZdC6tCWX4M3uVAh9Xhczsk8s4QHLytf-9jsx4EMHSBDf2S6pe2XDigyUUkijdmjQ0ss5dIpsLF0SMY63SPOYbwQbyQ_Kp5l8HqTUUG-R04sihigZ7A3C9zrBO60Qea9oZbe8zPKEUF-yub2o"/>
+</div>
+<div class="flex flex-col justify-center">
+<span class="text-on-surface-variant text-[0.6875rem] font-bold uppercase tracking-widest mb-1">Coming Up • 23:30</span>
+<h4 class="font-headline text-lg font-bold text-white mb-1">The Post-Match Analysis</h4>
+<p class="text-on-surface-variant text-xs line-clamp-1">In-depth tactical review of tonight's final with expert guests.</p>
+</div>
+</div>
+</div>
+<!-- Next 2 -->
+<div class="bg-surface-container rounded-3xl p-5 border border-outline-variant/10 hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Abstract vibrant motion blur of a basketball game" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxP6oAXh_Ab3JFGuOFr1TpZx7U3SWT_C9sIAVRZXbWTPYp8QUsz4dtLja-G3IZ82tcWjc7ZVD1DXji0CgJ42_hSDrKDWmD30m8DRAtcUpxRFA-vJ9lYsQyMDRyLXMNUlpCsJmvsmYAMWGp-37u0tpmam-yt6MjqTlWrMshOP04h0KYQo8JZ3U-OTAjiEoES73qwrDNAnzkdjkIfbDRPZJbc-kwGKBoasFmdz-XM2NPQmNJls0gC8tr1LCsWPPaMM65FgU1Y8iNetc"/>
+</div>
+<div class="flex flex-col justify-center">
+<span class="text-on-surface-variant text-[0.6875rem] font-bold uppercase tracking-widest mb-1">Tomorrow • 01:00</span>
+<h4 class="font-headline text-lg font-bold text-white mb-1">NBA Classics: Bulls vs Jazz</h4>
+<p class="text-on-surface-variant text-xs line-clamp-1">Relive the greatest moments in basketball history.</p>
+</div>
+</div>
+</div>
+<button class="mt-2 w-full py-4 rounded-2xl bg-surface-container-highest text-primary font-bold text-sm tracking-wide border border-primary/10 hover:border-primary/40 transition-all">
+            Full Channel Schedule
+          </button>
+</div>
+</div>
+<!-- Suggested Content (Related Channels) -->
+<div class="mt-12">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline text-xl font-bold">More Sports Channels</h3>
+<button class="text-secondary text-sm font-bold flex items-center gap-1 hover:gap-2 transition-all">
+            Browse All <span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+<div class="relative aspect-video rounded-2xl overflow-hidden bg-surface-container group cursor-pointer">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" data-alt="Dynamic shot of an American Football field at night" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgB0Ewua9qBgnOLJnkHvgqc373CtWVsBlECUbgsCst5jy8iV0-GhUle1RC3Zvtgtl4G4w6hfDKUsM1AMt3VEtr5MUKZ-DVlv5QEG6iqyl4HU10nO-0yXnZ3M-FHTfKinW7ITEFdS5-6nxm68JJW31KtPOwJawWp1EGwZtvTibsgY96YmiWGjd2fp70IqPEs-QfM-NoLdavM6Nd22p3lyVEkAMraD8lbVD-kBgKKAX15VV1wiyQXcWosBwUqR9iYX1wKFtDc4LlKPY"/>
+<div class="absolute inset-0 p-3 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent">
+<span class="text-white font-bold text-xs">Gridiron HD</span>
+</div>
+</div>
+<div class="relative aspect-video rounded-2xl overflow-hidden bg-surface-container group cursor-pointer">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" data-alt="Fast action shot of cyclists in a race" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxQkUNqeVbDLis8NfNn0ufpFaR62TnVm3ikBJzP4JjBTn4tMWu0GcPg7PvD_h8zqHPiEDUIgLrfehMLkYgKTQ7rrz5O0sxMk7MoabicOBlHEN1B-HYBkPpIL6PPMBpNVp4eumodGlE95ihN_mtTRZJh6lz5iVBH5Ft51V3lIR4m7jO6iEGq94IuOjzBvJ-cZ_ImJQ5mkupiSRKkhqisXiIAIuG_Z-Tu8xbylzvZ-e7C999gWEXSzyryDB1IPvidieTHsA7XAOlA68"/>
+<div class="absolute inset-0 p-3 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent">
+<span class="text-white font-bold text-xs">Velo Pro</span>
+</div>
+</div>
+<div class="relative aspect-video rounded-2xl overflow-hidden bg-surface-container group cursor-pointer">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" data-alt="High quality close up of a basketball hoop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2gBCKCDrJp3R4fx6QbrQ-UdT_91vSTy5gTX40YIIDEkCBsDKIjS_XzatBlA39kwJR6FKhOc3y1TnU8rQ7BMPbrjn2Ztpai2lVsW4u0bU8b6AdVCI7_P6XWjMfrBRUc2SItKwGgTnizBhhV6bSmO8Z2aS6-vMQTCAPTpesRIU60ysACXM8YAJKHc6nc0k8Xc_gUWfOSF08r_DUQepmaC42qqeorHfPX8Ky9tsB3wZJbjBF58s_y71HXJYUbTaOE17xw6LV0DDyAi4"/>
+<div class="absolute inset-0 p-3 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent">
+<span class="text-white font-bold text-xs">Hoops TV</span>
+</div>
+</div>
+<div class="relative aspect-video rounded-2xl overflow-hidden bg-surface-container group cursor-pointer">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" data-alt="Interior of a modern professional gym" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_1TX0-NMgy-dCX6GsDgTp4vsw_iZ9hGnCwC0tb9rEGQuUDFMANEDUPROsrCPdj2p1RgLopK7ow4A2BJ3T5pUYlrtfvnDamNelkGWx6QKxiohqMiJnSgAFF5OiYiE219-jZPzQR6nWyC-rGJZP7g4EzN1ODOYlNrr4p_6oDk28Qufbh3EuqoQccEShW3GNnEz1oiB_xfqD2yzpsavRn20ORGRrnXaIfA17R_lJLwHqOw9rcWH_rAoE7xbyUIENGnWqaEHi_pOy2lY"/>
+<div class="absolute inset-0 p-3 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent">
+<span class="text-white font-bold text-xs">Fit Life</span>
+</div>
+</div>
+<div class="relative aspect-video rounded-2xl overflow-hidden bg-surface-container group cursor-pointer">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" data-alt="Cool blue swimming pool water ripples" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTNXGhhXG87SlCauhcE9EY8QcgjEd1HR4_yMcPWRcKsabVTjbiCrBbj0vNRXb80OYc8VfQsa0qZ9uyF-DlO6GwXgiIh5Rxlxmgtj9FkFdS6HxyL-KmRaKiSTDCDZErKlbJ740MdZtgL1Vx_90GmyWXiYV184Imna4WdABdUv2HC37W_UhdjEvTWRlkR4_itmVUp7va6RlcX8qfrNvXN9C-mAuvYcpJJg6HSAgK9AyTUAhb7aC33RVK5Fx5JFdOqIEU9McdqmuiOy0"/>
+<div class="absolute inset-0 p-3 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent">
+<span class="text-white font-bold text-xs">Swim World</span>
+</div>
+</div>
+<div class="relative aspect-video rounded-2xl overflow-hidden bg-surface-container group cursor-pointer">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" data-alt="Detail of a running track texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx7q9xi1jGF0qKm0zXk1t-qixtdEwhDGBJ_cfPHXPVPYMVBPX5zS3-0x5GRmoTybW42A1D7j6Xi0ckbvOsVe983PDa7QgOoEtTSG0xWqaJE-QiH-dDg1A1tUYOoKrO7HMKnk2Y3jF64drl1wpGML0F_2UaSRN1aHf2h0w0GE8kEsgu9GAc2c460Fw2LIGn6EJOKvUZ63i37WCKV-I_7sv_xMj5ZRJ64Q5OEEbBuCviVYJoso7JnJIH3KlFhuxkOwhTVgBUgVNT7mo"/>
+<div class="absolute inset-0 p-3 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent">
+<span class="text-white font-bold text-xs">Sprint Plus</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Ambient Backdrop Glow -->
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-[80vw] h-[265px] bg-primary/5 blur-[120px] -z-10 pointer-events-none"></div>
+</body></html>

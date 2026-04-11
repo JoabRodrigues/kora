@@ -59,6 +59,8 @@ export function Sidebar({
   onSeasonChange,
 }: SidebarProps) {
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const isSeasonSelectionPending =
+    sidebarView === "episodes" && seasonOptions.length > 1 && selectedSeasonId === "__select-season__";
 
   const primaryEntries = useMemo(
     () =>
@@ -207,7 +209,11 @@ export function Sidebar({
 
             <ChannelList
               channels={visibleChannels}
-              emptyMessage="Nenhum episodio encontrado para esse filtro."
+              emptyMessage={
+                isSeasonSelectionPending
+                  ? "Selecione uma temporada para ver os episodios."
+                  : "Nenhum episodio encontrado para esse filtro."
+              }
               favoriteKeys={favoriteKeys}
               recentKeys={recentKeys}
               selectedChannelId={selectedChannelId}

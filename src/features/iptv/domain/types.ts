@@ -26,6 +26,7 @@ export type XtreamChannel = {
   category_id?: string | number | null;
   epg_channel_id?: string;
   container_extension?: string;
+  direct_source?: string;
 };
 
 export type XtreamSeries = {
@@ -40,8 +41,10 @@ export type XtreamSeriesEpisode = {
   title?: string;
   episode_num?: number;
   container_extension?: string;
+  direct_source?: string;
   info?: {
     movie_image?: string;
+    direct_source?: string;
   };
 };
 
@@ -84,6 +87,7 @@ export type NormalizedChannel = {
   icon: string;
   epgId: string;
   extension?: string;
+  directSource?: string;
   seasonId?: string;
   seriesId?: number;
 };

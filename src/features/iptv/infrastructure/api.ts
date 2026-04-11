@@ -21,7 +21,18 @@ import {
 } from "../domain/utils";
 
 export async function authenticate(credentials: Credentials) {
-  const authResponse = await fetch(buildApiUrl(credentials));
+  let authResponse: Response;
+  try {
+    authResponse = await fetch(buildApiUrl(credentials));
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(
+        "Falha de rede ao conectar. No Android, isso costuma acontecer com servidor HTTP bloqueado, certificado HTTPS invalido ou provedor indisponivel."
+      );
+    }
+    throw error;
+  }
+
   if (!authResponse.ok) {
     throw new Error(`Falha ao autenticar: HTTP ${authResponse.status}`);
   }
@@ -95,6 +106,9 @@ export async function fetchSeriesEpisodes(
         icon: String(episode.info?.movie_image ?? data.info?.cover ?? series.icon).trim(),
         epgId: `Temporada ${seasonId}`,
         extension: String(episode.container_extension ?? "mp4").trim() || "mp4",
+        directSource: String(
+          episode.direct_source ?? episode.info?.direct_source ?? ""
+        ).trim(),
         seasonId,
         seriesId: series.id,
       });

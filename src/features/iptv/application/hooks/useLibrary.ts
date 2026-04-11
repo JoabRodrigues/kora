@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ALL_CATEGORY_ID,
   CONTINUE_WATCHING_CATEGORY_ID,
   FAVORITES_CATEGORY_ID,
+  LIBRARY_CACHE_STORAGE_KEY,
+  LIBRARY_CACHE_TTL_MS,
   RECENTS_CATEGORY_ID,
 } from "../../domain/constants";
 import type {
@@ -16,6 +18,24 @@ import type {
 } from "../../domain/types";
 import { itemLabel, selectedCategoryName } from "../../domain/utils";
 import { fetchModeLibrary, fetchSeriesEpisodes } from "../../infrastructure/api";
+import { readPersistentValue, writePersistentValue } from "../../infrastructure/storage";
+
+type CachedModeLibrary = {
+  categories: NormalizedCategory[];
+  items: NormalizedChannel[];
+  message: string;
+  updatedAt: string;
+};
+
+type CachedSeriesEpisodes = {
+  items: NormalizedChannel[];
+  updatedAt: string;
+};
+
+type LibraryCacheStore = {
+  libraries: Partial<Record<string, CachedModeLibrary>>;
+  seriesEpisodes: Partial<Record<string, CachedSeriesEpisodes>>;
+};
 
 type UseLibraryArgs = {
   continueWatching: Record<string, ContinueWatchingEntry>;
@@ -26,6 +46,8 @@ type UseLibraryArgs = {
   setErrorMessage: (value: string) => void;
   setStatusMessage: (value: string) => void;
 };
+
+const SELECT_SEASON_PLACEHOLDER = "__select-season__";
 
 export function useLibrary({
   continueWatching,
@@ -41,12 +63,65 @@ export function useLibrary({
   const [channels, setChannels] = useState<NormalizedChannel[]>([]);
   const [selectedCategory, setSelectedCategory] = useState(ALL_CATEGORY_ID);
   const [selectedChannelId, setSelectedChannelId] = useState<number | null>(null);
+  const [selectedChannelKey, setSelectedChannelKey] = useState<string | null>(null);
+  const [selectedChannelVersion, setSelectedChannelVersion] = useState(0);
   const [search, setSearch] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
   const [sidebarView, setSidebarView] = useState<SidebarView>("categories");
   const [selectedSeries, setSelectedSeries] = useState<NormalizedChannel | null>(null);
   const [selectedSeasonId, setSelectedSeasonId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const requestIdRef = useRef(0);
+  const modeLibraryMemoryRef = useRef<Partial<Record<ContentMode, CachedModeLibrary>>>({});
+
+  function cancelPendingRequest() {
+    requestIdRef.current += 1;
+    setIsLoading(false);
+  }
+
+  function buildProfileCacheKey() {
+    return `${credentials.serverUrl.trim()}|${credentials.username.trim()}`;
+  }
+
+  function buildLibraryCacheKey(nextMode: ContentMode) {
+    return `${buildProfileCacheKey()}|${nextMode}`;
+  }
+
+  function buildSeriesCacheKey(series: NormalizedChannel) {
+    return `${buildProfileCacheKey()}|series:${series.id}`;
+  }
+
+  function isFresh(updatedAt: string) {
+    return Date.now() - new Date(updatedAt).getTime() < LIBRARY_CACHE_TTL_MS;
+  }
+
+  async function readCache() {
+    return readPersistentValue<LibraryCacheStore>(LIBRARY_CACHE_STORAGE_KEY, {
+      libraries: {},
+      seriesEpisodes: {},
+    });
+  }
+
+  async function writeLibraryCache(nextMode: ContentMode, library: CachedModeLibrary) {
+    const cache = await readCache();
+    cache.libraries[buildLibraryCacheKey(nextMode)] = library;
+    await writePersistentValue(LIBRARY_CACHE_STORAGE_KEY, cache);
+  }
+
+  async function writeSeriesCache(series: NormalizedChannel, items: NormalizedChannel[]) {
+    const cache = await readCache();
+    cache.seriesEpisodes[buildSeriesCacheKey(series)] = {
+      items,
+      updatedAt: new Date().toISOString(),
+    };
+    await writePersistentValue(LIBRARY_CACHE_STORAGE_KEY, cache);
+  }
+
+  function applyLibrarySnapshot(library: CachedModeLibrary) {
+    setCategories(library.categories);
+    setChannels(library.items);
+    setStatusMessage(library.message);
+  }
 
   const visibleChannels = useMemo(() => {
     const term = search.toLowerCase().trim();
@@ -135,61 +210,145 @@ export function useLibrary({
     [channels]
   );
 
-  useEffect(() => {
-    if (!sessionActive) return;
+  function resetNavigationState() {
+    cancelPendingRequest();
     setSidebarView("categories");
     setSelectedCategory(ALL_CATEGORY_ID);
     setSelectedChannelId(null);
+    setSelectedChannelKey(null);
+    setSelectedChannelVersion(0);
     setSelectedSeries(null);
     setSelectedSeasonId("");
     setSearch("");
+    setCategorySearch("");
+  }
+
+  useEffect(() => {
+    if (!sessionActive) return;
+    resetNavigationState();
     loadContent(mode).catch(() => undefined);
   }, [mode, sessionActive]);
 
   async function loadContent(nextMode: ContentMode) {
+    const requestId = ++requestIdRef.current;
     setIsLoading(true);
     setErrorMessage("");
-    setStatusMessage(
-      `Carregando ${nextMode === "live" ? "canais" : nextMode === "movie" ? "filmes" : "series"}...`
-    );
 
     try {
+      const cache = await readCache();
+      if (requestId !== requestIdRef.current) {
+        return;
+      }
+      const cachedLibrary = cache.libraries[buildLibraryCacheKey(nextMode)];
+
+      if (cachedLibrary && isFresh(cachedLibrary.updatedAt)) {
+        modeLibraryMemoryRef.current[nextMode] = cachedLibrary;
+        applyLibrarySnapshot(cachedLibrary);
+        return;
+      }
+
+      setStatusMessage(
+        `Carregando ${nextMode === "live" ? "canais" : nextMode === "movie" ? "filmes" : "series"}...`
+      );
+
       const library = await fetchModeLibrary(credentials, nextMode);
-      setCategories(library.categories);
-      setChannels(library.items);
-      setStatusMessage(library.message);
+      if (requestId !== requestIdRef.current) {
+        return;
+      }
+      const loadedLibrarySnapshot: CachedModeLibrary = {
+        ...library,
+        updatedAt: new Date().toISOString(),
+      };
+      modeLibraryMemoryRef.current[nextMode] = loadedLibrarySnapshot;
+      applyLibrarySnapshot(loadedLibrarySnapshot);
+      await writeLibraryCache(nextMode, loadedLibrarySnapshot);
     } catch (error) {
+      if (requestId !== requestIdRef.current) {
+        return;
+      }
       const message = error instanceof Error ? error.message : "Falha ao carregar conteudo.";
       setCategories([]);
       setChannels([]);
       setSelectedChannelId(null);
+      setSelectedChannelKey(null);
       setErrorMessage(message);
       setStatusMessage("Falha ao carregar biblioteca.");
     } finally {
-      setIsLoading(false);
+      if (requestId === requestIdRef.current) {
+        setIsLoading(false);
+      }
     }
   }
 
   async function openSeries(channel: NormalizedChannel) {
+    const requestId = ++requestIdRef.current;
     setIsLoading(true);
     setErrorMessage("");
-    setStatusMessage(`Carregando episodios de ${channel.name}...`);
+    setSelectedSeries(channel);
+    setSelectedSeasonId("");
+    setSelectedChannelId(null);
+    setSelectedChannelKey(null);
+    setSidebarView("episodes");
+    setChannels([]);
 
     try {
+      const cache = await readCache();
+      if (requestId !== requestIdRef.current) {
+        return;
+      }
+      const cachedEpisodes = cache.seriesEpisodes[buildSeriesCacheKey(channel)];
+
+      if (cachedEpisodes && isFresh(cachedEpisodes.updatedAt)) {
+        setChannels(cachedEpisodes.items);
+        setSelectedSeasonId(getInitialSeasonSelection(cachedEpisodes.items));
+        setStatusMessage(`${cachedEpisodes.items.length} episodio(s) carregado(s).`);
+        return;
+      }
+
+      setStatusMessage(`Carregando episodios de ${channel.name}...`);
+
       const episodes = await fetchSeriesEpisodes(credentials, channel);
+      if (requestId !== requestIdRef.current) {
+        return;
+      }
       setChannels(episodes);
-      setSelectedSeries(channel);
-      setSelectedSeasonId("");
-      setSelectedChannelId(null);
-      setSidebarView("episodes");
+      setSelectedSeasonId(getInitialSeasonSelection(episodes));
       setStatusMessage(`${episodes.length} episodio(s) carregado(s).`);
+      await writeSeriesCache(channel, episodes);
     } catch (error) {
+      if (requestId !== requestIdRef.current) {
+        return;
+      }
       const message = error instanceof Error ? error.message : "Falha ao abrir serie.";
       setErrorMessage(message);
       setStatusMessage("Falha ao carregar serie.");
     } finally {
-      setIsLoading(false);
+      if (requestId === requestIdRef.current) {
+        setIsLoading(false);
+      }
     }
+  }
+
+  function handleModeChange(nextMode: ContentMode) {
+    const memoryLibrary = modeLibraryMemoryRef.current[nextMode];
+
+    if (nextMode === mode) {
+      resetNavigationState();
+      if (memoryLibrary) {
+        applyLibrarySnapshot(memoryLibrary);
+      }
+      loadContent(nextMode).catch(() => undefined);
+      return;
+    }
+
+    resetNavigationState();
+    if (memoryLibrary) {
+      applyLibrarySnapshot(memoryLibrary);
+    } else {
+      setCategories([]);
+      setChannels([]);
+    }
+    setMode(nextMode);
   }
 
   function handleSelectCategory(categoryId: string) {
@@ -199,12 +358,19 @@ export function useLibrary({
   }
 
   function handleSelectChannel(channel: NormalizedChannel) {
-    if (mode === "series" && sidebarView !== "episodes") {
+    if (
+      mode === "series" &&
+      sidebarView !== "episodes" &&
+      !channel.seasonId &&
+      !channel.key.startsWith("series-episode:")
+    ) {
       openSeries(channel).catch(() => undefined);
       return;
     }
 
     setSelectedChannelId(channel.id);
+    setSelectedChannelKey(channel.key);
+    setSelectedChannelVersion((current) => current + 1);
   }
 
   return {
@@ -216,10 +382,12 @@ export function useLibrary({
     seasonOptions,
     selectedCategoryTitle,
     selectedChannelId,
+    selectedChannelKey,
+    selectedChannelVersion,
     selectedSeasonId,
     selectedSeries,
     setCategorySearch,
-    setMode,
+    setMode: handleModeChange,
     setSearch,
     setSelectedSeasonId,
     setSidebarView,
@@ -230,4 +398,9 @@ export function useLibrary({
     handleSelectChannel,
     loadContent: () => loadContent(mode),
   };
+}
+
+function getInitialSeasonSelection(items: NormalizedChannel[]) {
+  const seasonIds = Array.from(new Set(items.map((item) => item.seasonId).filter(Boolean)));
+  return seasonIds.length > 1 ? SELECT_SEASON_PLACEHOLDER : "";
 }
